@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ezra Cheng Iao — Cybersecurity</title>
+  <meta name="description" content="Ezra Cheng Iao, cybersecurity student at BYU-Idaho and Tier 1 SOC analyst. Enterprise security lab, SOAR automation, and detection work.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <a class="brand" href="#top" aria-label="Ezra Cheng Iao, back to top">Ezra Cheng Iao</a>
+    <button class="nav-toggle" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav id="nav" class="nav">
+      <a href="#lab">Lab</a>
+      <a href="#experience">Experience</a>
+      <a href="#projects">Projects</a>
+      <a href="#credentials">Credentials</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <!-- Hero -->
+    <section class="hero" id="top">
+      <p class="hero-kicker">Cybersecurity student, BYU-Idaho · Tier 1 SOC analyst</p>
+      <h1 class="hero-title">I build the network,<br>then I watch it.</h1>
+      <p class="hero-lede">
+        I'm Ezra. I triage real alerts for a city government and a high school, and outside of work
+        I designed a five-zone enterprise lab with two firewalls, a SIEM, and a pipeline that blocks
+        malicious IPs on its own. I'm looking for a security engineering internship where I can do
+        this at scale.
+      </p>
+      <div class="hero-actions">
+        <a class="btn btn-solid" href="#lab">Explore the lab</a>
+        <a class="btn btn-line" href="assets/Ezra_Cheng_Iao_Resume.pdf" download>Download résumé</a>
+      </div>
+      <dl class="hero-facts">
+        <div><dt>GPA</dt><dd>3.98, full scholarship</dd></div>
+        <div><dt>Graduating</dt><dd>July 2027</dd></div>
+        <div><dt>Languages</dt><dd>English, Mandarin, Cantonese</dd></div>
+      </dl>
+    </section>
+
+    <!-- Lab: the signature section -->
+    <section class="lab" id="lab" aria-labelledby="lab-title">
+      <div class="section-head">
+        <h2 id="lab-title">Enterprise multi-zone security lab</h2>
+        <p>Built on Proxmox in 2026. Pick a zone to see what lives there and what's allowed to reach it.</p>
+      </div>
+
+      <div class="topology">
+        <div class="zones" role="tablist" aria-label="Network zones, least to most trusted">
+          <button class="zone" role="tab" data-zone="outside" aria-selected="false" style="--trust:0">
+            <span class="zone-name">Outside</span><span class="zone-trust">Untrusted</span>
+          </button>
+          <span class="fw" aria-hidden="true">Palo Alto PA-440</span>
+          <button class="zone" role="tab" data-zone="dmz" aria-selected="true" style="--trust:1">
+            <span class="zone-name">DMZ</span><span class="zone-trust">Public-facing</span>
+          </button>
+          <button class="zone" role="tab" data-zone="interconnect" aria-selected="false" style="--trust:2">
+            <span class="zone-name">Interconnect</span><span class="zone-trust">Firewall link</span>
+          </button>
+          <span class="fw" aria-hidden="true">FortiGate 61F</span>
+          <button class="zone" role="tab" data-zone="inside" aria-selected="false" style="--trust:3">
+            <span class="zone-name">Inside</span><span class="zone-trust">Internal</span>
+          </button>
+          <button class="zone" role="tab" data-zone="secure" aria-selected="false" style="--trust:4">
+            <span class="zone-name">Secure</span><span class="zone-trust">Most restricted</span>
+          </button>
+        </div>
+
+        <div class="zone-detail" role="tabpanel" aria-live="polite" id="zone-detail"></div>
+      </div>
+
+      <div class="pipeline" aria-labelledby="soar-title">
+        <div class="pipeline-head">
+          <h3 id="soar-title">SOAR pipeline: from detection to block, no human in the loop</h3>
+          <button class="btn btn-line btn-small" id="run-pipeline">Run a sample detection</button>
+        </div>
+        <ol class="steps" id="steps">
+          <li class="step">
+            <h4>Detect</h4>
+            <p>A scheduled Splunk search flags a suspicious source IP and fires a webhook.</p>
+          </li>
+          <li class="step">
+            <h4>Enrich</h4>
+            <p>n8n looks the IP up in GeoIP and AbuseIPDB to get a location and abuse score.</p>
+          </li>
+          <li class="step">
+            <h4>Decide and block</h4>
+            <p>Above the threshold, n8n tags the IP through the Palo Alto API. A dynamic address group picks it up and the block takes effect without a policy change.</p>
+          </li>
+          <li class="step">
+            <h4>Notify</h4>
+            <p>A Discord message records what was blocked and why, so a person can review or undo it.</p>
+          </li>
+        </ol>
+        <p class="pipeline-log" id="pipeline-log" aria-live="polite">Press “Run a sample detection” to walk through one event.</p>
+      </div>
+    </section>
+
+    <!-- Experience -->
+    <section class="experience" id="experience" aria-labelledby="exp-title">
+      <div class="section-head">
+        <h2 id="exp-title">Experience</h2>
+      </div>
+      <ol class="timeline">
+        <li>
+          <div class="when">May 2026 – present</div>
+          <div class="what">
+            <h3>Security Operations Center Analyst, Tier 1</h3>
+            <p class="org">BYU-Idaho</p>
+            <ul>
+              <li>Monitor network traffic and security alerts for Rexburg City and Madison High School using SIEM and security monitoring tools.</li>
+              <li>Analyze suspicious events to identify indicators of compromise as part of daily incident response.</li>
+              <li>Build incident tickets with timeline, affected hosts, and IOCs, and escalate them to senior analysts.</li>
+            </ul>
+          </div>
+        </li>
+        <li>
+          <div class="when">Dec 2025 – Apr 2026</div>
+          <div class="what">
+            <h3>Peer Success Mentor</h3>
+            <p class="org">BYU-Idaho</p>
+            <ul>
+              <li>Advised 100+ students one-on-one, finding the root causes behind low grades and building individual improvement plans.</li>
+              <li>Followed up on progress and adjusted plans until students were back on track.</li>
+            </ul>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- Projects -->
+    <section class="projects" id="projects" aria-labelledby="proj-title">
+      <div class="section-head">
+        <h2 id="proj-title">Other projects</h2>
+      </div>
+      <div class="project-list">
+        <article class="project">
+          <p class="status status-live">Shipped, August 2026</p>
+          <h3>Poker AI assistant</h3>
+          <p>A Python tool that estimates hand equity in real time with Monte Carlo simulation, plus a scikit-learn model trained on 50,000+ simulated hands to predict opponent behavior and bluff probability. Deployed as a Streamlit web app with a step-by-step beginner tutor mode.</p>
+          <p class="tags">Python, scikit-learn, Streamlit</p>
+        </article>
+        <article class="project">
+          <p class="status status-wip">In progress</p>
+          <h3>Phishing email detector</h3>
+          <p>A web app where you upload an email and get a phishing-probability score with the reasons behind it. When it isn't sure, for example with an unfamiliar company domain, it asks you instead of guessing.</p>
+          <p class="tags">Python, machine learning, email analysis</p>
+        </article>
+        <article class="project">
+          <p class="status status-live">Ongoing</p>
+          <h3>Lab detection stack</h3>
+          <p>Security Onion 3.1 with custom Suricata rules, Sysmon and Elastic Agent on the domain controller and web server, and Palo Alto, IIS, and Security Onion logs flowing into Splunk through a custom Logstash pipeline.</p>
+          <p class="tags">Security Onion, Suricata, Sysmon, Splunk</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- Credentials & skills -->
+    <section class="credentials" id="credentials" aria-labelledby="cred-title">
+      <div class="section-head">
+        <h2 id="cred-title">Credentials and tools</h2>
+      </div>
+      <div class="cred-grid">
+        <div>
+          <h3>Certifications</h3>
+          <ul class="plain">
+            <li>CompTIA Security+</li>
+            <li>Practical SOC Analyst Associate (PSAA), TCM Security</li>
+            <li>AWS Certified Cloud Practitioner</li>
+            <li>Google Cybersecurity Certificate</li>
+            <li>TryHackMe SOC Level 1</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Education</h3>
+          <p><strong>B.S. Cybersecurity</strong>, Brigham Young University-Idaho<br>Expected July 2027 · GPA 3.98 · Full scholarship</p>
+          <p class="muted">Coursework: Security Assessment, Enterprise Network Security, SIEM operations</p>
+        </div>
+        <div class="tools">
+          <h3>Tools I've used hands-on</h3>
+          <dl>
+            <dt>Monitoring and SIEM</dt><dd>Splunk, Security Onion, Suricata, Elastic Agent, Sysmon</dd>
+            <dt>Network and access</dt><dd>Palo Alto, FortiGate, GlobalProtect VPN, Duo MFA, Apache Guacamole, Active Directory</dd>
+            <dt>Automation and cloud</dt><dd>n8n, Docker, Python, AWS (EC2, VPC, IAM, S3, RDS), Wireshark</dd>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="contact" id="contact" aria-labelledby="contact-title">
+      <h2 id="contact-title">Let's talk</h2>
+      <p>I'm open to security engineering, SOC, and cloud security internships, in the US or Asia-Pacific. I work comfortably in English and Mandarin, and I'm from Macau.</p>
+      <div class="contact-links">
+        <a class="btn btn-solid" href="mailto:ezraiao98@gmail.com">Email me</a>
+        <button class="btn btn-line" id="copy-email" data-email="ezraiao98@gmail.com">Copy email address</button>
+        <a class="btn btn-line" href="https://www.linkedin.com/in/cheng-iao-3994b4382/" target="_blank" rel="noopener">LinkedIn</a>
+        <a class="btn btn-line" href="https://github.com/ezraiao" target="_blank" rel="noopener">GitHub</a>
+      </div>
+      <p class="copy-status" id="copy-status" aria-live="polite"></p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>© <span id="year">2026</span> Ezra Cheng Iao. Built by hand with HTML, CSS, and JavaScript.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
